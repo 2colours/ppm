@@ -5,7 +5,8 @@ var util,
 var jasmine = require('jasmine-node/lib/jasmine-node/index');
 
 process.on("uncaughtException", (err) => {
-  // Where does our logs go? I can't seem to output in any sane way at all for this
+  // Where do our logs go? I can't seem to output in any sane way at all for
+  // this.
   fs.writeFileSync(`${__dirname}/log.txt`, JSON.stringify(err) + "\n", { encoding: "utf8", flag: "a+"});
   fs.writeFileSync(`${__dirname}/log.txt`, JSON.stringify(err.stack) + "\n", { encoding: "utf8", flag: "a+"});
 });
@@ -32,7 +33,7 @@ var isVerbose = false;
 var showColors = true;
 var teamcity = process.env.TEAMCITY_PROJECT_NAME || false;
 var useRequireJs = false;
-var extentions = "js";
+var extensions = "js";
 var match = '.';
 var matchall = false;
 var autotest = false;
@@ -70,7 +71,7 @@ while(args.length) {
       break;
     case '--coffee':
       require('coffee-script');
-      extentions = "js|coffee|litcoffee";
+      extensions = "js|coffee|litcoffee";
       break;
     case '-m':
     case '--match':
@@ -172,7 +173,7 @@ if (autotest) {
 
   var patterns = ['**/*.js'];
 
-  if (extentions.indexOf("coffee") !== -1) {
+  if (extensions.indexOf("coffee") !== -1) {
     patterns.push('**/*.coffee');
   }
 
@@ -213,13 +214,13 @@ var onComplete = function(runner, log) {
 if(useHelpers){
   specFolders.forEach(function(path){
     jasmine.loadHelpersInFolder(path,
-                                new RegExp("helpers?\\.(" + extentions + ")$", 'i'));
+                                new RegExp("helpers?\\.(" + extensions + ")$", 'i'));
 
   })
 }
 
 try {
-  var regExpSpec = new RegExp(match + (matchall ? "" : "spec\\.") + "(" + extentions + ")$", 'i')
+  var regExpSpec = new RegExp(match + (matchall ? "" : "spec\\.") + "(" + extensions + ")$", 'i')
 } catch (error) {
   console.error("Failed to build spec-matching regex: " + error);
   process.exit(2);
