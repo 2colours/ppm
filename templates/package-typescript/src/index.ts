@@ -1,5 +1,5 @@
 import __PackageName__View from './__package-name__-view';
-import { CompositeDisposable } from 'atom';
+import { CompositeDisposable, Panel } from 'atom';
 
 // TODO: Edit to describe your package's serialized state
 export type SerializedState = {
@@ -29,19 +29,20 @@ export default {
   },
 
   deactivate() {
-    this.modalPanel.destroy();
-    this.subscriptions.dispose();
-    this.__packageName__View.destroy();
+    this.modalPanel?.destroy();
+    this.subscriptions?.dispose();
+    this.__packageName__View?.destroy();
   },
 
   serialize(): SerializedState {
     return {
-      __packageName__ViewState: this.__packageName__View.serialize()
+      __packageName__ViewState: this.__packageName__View?.serialize() ?? null
     };
   },
 
   toggle() {
     console.log('__PackageName__ was toggled!');
+    if (!this.modalPanel) return;
     return (
       this.modalPanel.isVisible() ?
       this.modalPanel.hide() :
@@ -49,4 +50,12 @@ export default {
     );
   }
 
+} satisfies {
+  __packageName__View: __PackageName__View | null;
+  modalPanel: Panel<unknown> | null;
+  subscriptions: CompositeDisposable | null;
+  toggle(): void;
+  activate(state: SerializedState): void;
+  deactivate(): void;
+  serialize?(): SerializedState;
 };

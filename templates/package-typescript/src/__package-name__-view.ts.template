@@ -1,7 +1,7 @@
-import type { SerializedState } from './__package-name__';
+import type { SerializedState } from './index';
 
 export default class __PackageName__View {
-  element: HTMLDivElement
+  element: HTMLDivElement;
 
   constructor(serializedState: SerializedState['__packageName__ViewState']) {
     // Create root element
@@ -10,7 +10,7 @@ export default class __PackageName__View {
 
     // Create message element
     const message = document.createElement('div');
-    message.textContent = 'The __PackageName__ package is Alive! It\'s ALIVE!';
+    message.textContent = `The __PackageName__ package is Alive! It's ALIVE!`;
     message.classList.add('message');
     this.element.appendChild(message);
   }
