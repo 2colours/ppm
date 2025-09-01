@@ -43,7 +43,7 @@ import typescript from '@rollup/plugin-typescript';
 export default {
   input: 'src/index.ts',
   output: {
-    file: 'lib/index.js',
+    file: 'lib/index.cjs',
     // Output CommonJS as required by Electron in renderer code.
     format: 'cjs',
     exports: 'auto',
