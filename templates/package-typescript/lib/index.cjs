@@ -6,6 +6,6 @@ If you're stuck, follow the directions in your new package's \`README.md\`.
 exports.activate = () => {
   atom.notifications.addWarning(
     '__package-name__ is created but not built',
-    { description }
+    { description, dismissable: true }
   );
 };
