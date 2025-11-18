@@ -84,7 +84,7 @@ describe('apm init', () => {
 
     describe('when package syntax is TypeScript', () => {
       it('generates the proper file structure', async () => {
-        await apmRun(['init', '--syntax', 'typescript', '--package', 'fake-package'], callback);
+        await apmRun(['init', '--syntax', 'typescript', '--package', 'fake-package']);
         expect(fs.existsSync(packagePath)).toBeTruthy();
         expect(fs.existsSync(path.join(packagePath, 'keymaps'))).toBeTruthy();
         expect(fs.existsSync(path.join(packagePath, 'keymaps', 'fake-package.json'))).toBeTruthy();
