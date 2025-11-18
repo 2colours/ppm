@@ -20,7 +20,7 @@ describe('apm init', () => {
   describe('when creating a package', () => {
     describe('when package syntax is CoffeeScript', () => {
       it('generates the proper file structure', async () => {
-        await apmRun(['init', '--package', 'fake-package']);
+        await apmRun(['init', '--syntax', 'coffeescript', '--package', 'fake-package']);
         expect(fs.existsSync(packagePath)).toBeTruthy();
         expect(fs.existsSync(path.join(packagePath, 'keymaps'))).toBeTruthy();
         expect(
