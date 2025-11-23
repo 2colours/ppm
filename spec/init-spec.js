@@ -20,7 +20,7 @@ describe('apm init', () => {
   describe('when creating a package', () => {
     describe('when package syntax is CoffeeScript', () => {
       it('generates the proper file structure', async () => {
-        await apmRun(['init', '--package', 'fake-package']);
+        await apmRun(['init', '--syntax', 'coffeescript', '--package', 'fake-package']);
         expect(fs.existsSync(packagePath)).toBeTruthy();
         expect(fs.existsSync(path.join(packagePath, 'keymaps'))).toBeTruthy();
         expect(
@@ -77,6 +77,30 @@ describe('apm init', () => {
         expect(fs.existsSync(path.join(packagePath, 'spec', 'fake-package-spec.js'))).toBeTruthy();
         expect(fs.existsSync(path.join(packagePath, 'styles', 'fake-package.less'))).toBeTruthy();
         expect(fs.existsSync(path.join(packagePath, 'package.json'))).toBeTruthy();
+        expect(JSON.parse(fs.readFileSync(path.join(packagePath, 'package.json'))).name).toBe('fake-package');
+        expect(JSON.parse(fs.readFileSync(path.join(packagePath, 'package.json'))).repository).toBe('https://github.com/somebody/fake-package');
+      });
+    });
+
+    describe('when package syntax is TypeScript', () => {
+      it('generates the proper file structure', async () => {
+        await apmRun(['init', '--syntax', 'typescript', '--package', 'fake-package']);
+        expect(fs.existsSync(packagePath)).toBeTruthy();
+        expect(fs.existsSync(path.join(packagePath, 'keymaps'))).toBeTruthy();
+        expect(fs.existsSync(path.join(packagePath, 'keymaps', 'fake-package.json'))).toBeTruthy();
+        expect(fs.existsSync(path.join(packagePath, 'src'))).toBeTruthy();
+        expect(fs.existsSync(path.join(packagePath, 'src', 'fake-package-view.ts'))).toBeTruthy();
+        // TypeScript template uses `src/index.ts` instead of naming the
+        // entry point after the package.
+        expect(fs.existsSync(path.join(packagePath, 'src', 'index.ts'))).toBeTruthy();
+        expect(fs.existsSync(path.join(packagePath, 'menus'))).toBeTruthy();
+        expect(fs.existsSync(path.join(packagePath, 'menus', 'fake-package.json'))).toBeTruthy();
+        expect(fs.existsSync(path.join(packagePath, 'spec', 'fake-package-view-spec.js'))).toBeTruthy();
+        expect(fs.existsSync(path.join(packagePath, 'spec', 'fake-package-spec.js'))).toBeTruthy();
+        expect(fs.existsSync(path.join(packagePath, 'styles', 'fake-package.less'))).toBeTruthy();
+        expect(fs.existsSync(path.join(packagePath, 'package.json'))).toBeTruthy();
+        // TypeScript template includes a Rollup config file.
+        expect(fs.existsSync(path.join(packagePath, 'rollup.config.js'))).toBeTruthy();
         expect(JSON.parse(fs.readFileSync(path.join(packagePath, 'package.json'))).name).toBe('fake-package');
         expect(JSON.parse(fs.readFileSync(path.join(packagePath, 'package.json'))).repository).toBe('https://github.com/somebody/fake-package');
       });
