@@ -1,8 +1,6 @@
 
 const fs = require('fs-plus');
 const fsPromises = require("fs/promises");
-const ncp = require('ncp');
-const wrench = require('wrench');
 const path = require('path');
 
 const fsAdditions = {
@@ -19,7 +17,7 @@ const fsAdditions = {
   },
 
   listRecursive(directoryPath) {
-    return wrench.readdirSyncRecursive(directoryPath);
+    return fsPromises.readdir(directoryPath, { recursive: true });
   },
 
   async cp(sourcePath, destinationPath) {
